@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
-import * as motion from 'motion/react-client';
+import * as motion from 'framer-motion/client';
 
 interface AppReadinessProps {
   children: React.ReactNode;

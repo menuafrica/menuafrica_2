@@ -61,29 +61,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
  const startDemo = () => {
     setIsDemo(true);
     setUser({ id: 'demo-user', email: 'demo@menuafrica.com', user_metadata: { full_name: 'Demo User' } } as any);
-    setRole('owner');
-    setOrganization({
-      id: 'demo-org',
-      name: "Le Bistro d'Abidjan",
-      slug: 'bistro-abidjan',
-      billing_plan: 'premium',
-      created_at: new Date().toISOString()
+    
+    import('@/lib/demoData').then(({ DEMO_USER_PROFILE }) => {
+      setRole(DEMO_USER_PROFILE.role as UserRole);
+      setOrganization(DEMO_USER_PROFILE.organization as Organization);
+      setRestaurant(DEMO_USER_PROFILE.restaurant as unknown as Restaurant);
+      setLoading(false);
     });
-    setRestaurant({
-      id: 'demo-rest',
-      organization_id: 'demo-org',
-      name: "Le Bistro d'Abidjan",
-      subdomain: 'bistro-abidjan',
-      description: 'Demo Restaurant',
-      address: 'Abidjan',
-      phone: '',
-      email: 'demo@menuafrica.com',
-      logo_url: '',
-      hero_image_url: '',
-      primary_color: '#c25e00',
-      created_at: new Date().toISOString()
-    });
-    setLoading(false);
   };
 
   const loadProfileData = async (userId: string, force: boolean = false) => {
@@ -125,9 +109,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       try {
         if (!isSupabaseConfigured) {
-           console.warn("[Auth] Mode hors ligne/Démo.");
+           console.warn("[Auth] Mode hors ligne/Démo. Démarrage de la démo automatiquement.");
            clearTimeout(timeout);
-           if (mounted) setLoading(false);
+           if (mounted) {
+             startDemo();
+           }
            return;
         }
 

@@ -27,9 +27,11 @@ export const LibraryProvider = ({ children }: { children: React.ReactNode }) => 
 
   const fetchLibrary = async () => {
     if (!isSupabaseConfigured) {
-      setAvailableCategories([]);
-      setAvailableDishes([]);
-      setIsLoading(false);
+      import('@/lib/demoData').then(({ DEMO_CATEGORIES, DEMO_ITEMS }) => {
+        setAvailableCategories(DEMO_CATEGORIES);
+        setAvailableDishes(DEMO_ITEMS);
+        setIsLoading(false);
+      });
       return;
     }
 

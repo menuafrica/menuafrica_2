@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { usePathname, useRouter } from 'next/navigation';
 import { Sparkles, Library, Palette, QrCode, ArrowRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/uicomponents';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const DemoBanner: React.FC = () => {
   const { isDemo, clearAuth } = useAuth();
