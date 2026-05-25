@@ -2,6 +2,7 @@
 import React, { createContext, useState, useEffect, useRef, useContext } from 'react';
 import { supabase, isSupabaseConfigured, AuthService } from '@/lib/supabase';
 import { toast } from '@/components/ui/uicomponents';
+import { DEMO_USER_PROFILE } from '@/lib/demoData';
 
 type UserRole = 'owner' | 'admin' | 'staff' | 'user';
 interface Organization { id: string; name: string; slug: string; billing_plan: string; created_at: string; }
@@ -61,13 +62,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
  const startDemo = () => {
     setIsDemo(true);
     setUser({ id: 'demo-user', email: 'demo@menuafrica.com', user_metadata: { full_name: 'Demo User' } } as any);
-    
-    import('@/lib/demoData').then(({ DEMO_USER_PROFILE }) => {
-      setRole(DEMO_USER_PROFILE.role as UserRole);
-      setOrganization(DEMO_USER_PROFILE.organization as Organization);
-      setRestaurant(DEMO_USER_PROFILE.restaurant as unknown as Restaurant);
-      setLoading(false);
-    });
+    setRole(DEMO_USER_PROFILE.role as UserRole);
+    setOrganization(DEMO_USER_PROFILE.organization as Organization);
+    setRestaurant(DEMO_USER_PROFILE.restaurant as unknown as Restaurant);
+    setLoading(false);
   };
 
   const loadProfileData = async (userId: string, force: boolean = false) => {

@@ -2,6 +2,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useAuth } from './AuthContext';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { DEMO_CATEGORIES, DEMO_ITEMS } from '@/lib/demoData';
 
 interface LibraryContextType {
   availableDishes: any[];
@@ -27,11 +28,9 @@ export const LibraryProvider = ({ children }: { children: React.ReactNode }) => 
 
   const fetchLibrary = async () => {
     if (!isSupabaseConfigured) {
-      import('@/lib/demoData').then(({ DEMO_CATEGORIES, DEMO_ITEMS }) => {
-        setAvailableCategories(DEMO_CATEGORIES);
-        setAvailableDishes(DEMO_ITEMS);
-        setIsLoading(false);
-      });
+      setAvailableCategories(DEMO_CATEGORIES);
+      setAvailableDishes(DEMO_ITEMS);
+      setIsLoading(false);
       return;
     }
 

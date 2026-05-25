@@ -4,7 +4,6 @@ import { AdminLayout } from '@/components/layout/AdminLayout';
 
 export default function AdminPage() {
   return (
-    <AdminLayout>
       <div className="p-8 animate-fade-in-up">
         <h1 className="text-3xl font-bold mb-4 font-serif">Tableau de Bord</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -22,6 +21,5 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
-    </AdminLayout>
   );
 }

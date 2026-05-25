@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     
     // We can inject logic here depending on the isPublicContext
     const response = await ai.models.generateContent({
-      model: model || "gemini-1.5-pro",
+      model: model || "gemini-3.5-flash",
       contents: contents,
       config: config
     });

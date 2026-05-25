@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     const systemInstruction = `Tu es Lova, expert traducteur gastronomique pour MenuAfrica. Ta mission : Traduire ce menu en ${targetLang}. RÈGLES STRICTES : 1. Garde EXACTEMENT la même structure JSON. 2. Ne traduis PAS les clés du JSON (ex: "price", "image_url"), seulement les valeurs textuelles visibles. 3. Pour les descriptions : Rends-les appétissantes et vendeuses dans la langue cible. 4. Pour les noms de plats : Garde les noms locaux (ex: "Thieboudienne", "Yassa") mais traduis les termes génériques (ex: "Poulet", "Riz").`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-1.5-pro',
+        model: 'gemini-3.5-flash',
         contents: `JSON à traduire : ${sourceString}`,
         config: { systemInstruction: systemInstruction, responseMimeType: "application/json" }
     });
