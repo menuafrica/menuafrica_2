@@ -1,21 +1,34 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { Card, Button, Input, Label, toast } from '@/components/ui/uicomponents';
 import { Mail, MapPin, Phone, MessageCircle, Send, MessageSquare } from 'lucide-react';
 
-export default function Contact() {
-  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
-  const [isSending, setIsSending] = useState(false);
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+  return (
+    <Button 
+        type="submit" 
+        disabled={pending}
+        isLoading={pending}
+        className="w-full bg-[#c25e00] hover:bg-[#a04e00] text-white font-bold h-12 rounded-xl shadow-lg shadow-orange-500/10"
+    >
+        {pending ? 'Envoi en cours...' : 'Envoyer le message'} 
+        {!pending && <Send size={16} className="ml-2" />}
+    </Button>
+  );
+};
 
-  const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSending(true);
-    // Simulation envoi
+export default function Contact() {
+  const handleContactSubmit = async (prevState: any, formData: FormData) => {
+    // Simulation d'envoi asynchrone natif
     await new Promise(r => setTimeout(r, 1500));
-    toast.success("Message envoyé ! L'équipe vous répondra sous 24h.");
-    setContactForm({ name: '', email: '', message: '' });
-    setIsSending(false);
+    const name = formData.get('name');
+    toast.success(`Message envoyé ! Merci ${name}, l'équipe vous répondra sous 24h.`);
+    return { success: true };
   };
+
+  const [state, formAction] = useActionState(handleContactSubmit, { success: false });
 
   const openChat = () => {
     window.dispatchEvent(new CustomEvent('menuafrica:open-chat'));
@@ -93,7 +106,7 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* 2. FORMULAIRE DE CONTACT (NOUVELLE SECTION) */}
+      {/* 2. FORMULAIRE DE CONTACT */}
       <section className="py-24 bg-white relative border-t border-slate-100">
           <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto bg-white rounded-[2.5rem] shadow-xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
@@ -134,13 +147,21 @@ export default function Contact() {
 
                   {/* Right Form */}
                   <div className="md:w-7/12 p-10 bg-slate-50/50">
-                      <form onSubmit={handleContactSubmit} className="space-y-6">
+                      <form action={formAction} className="space-y-6">
                           <div className="space-y-2">
                               <Label className="text-xs font-bold text-slate-500 uppercase">Votre Nom</Label>
                               <Input 
-                                  value={contactForm.name} 
-                                  onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                                  name="name"
                                   placeholder="Jean Dupont" 
+                                  className="bg-white border-slate-200 focus:border-[#c25e00] focus:ring-[#c25e00]/20"
+                                  required
+                              />
+                          </div>
+                          <div className="space-y-2">
+                              <Label className="text-xs font-bold text-slate-500 uppercase">Restaurant</Label>
+                              <Input 
+                                  name="restaurant"
+                                  placeholder="Nom de l'établissement" 
                                   className="bg-white border-slate-200 focus:border-[#c25e00] focus:ring-[#c25e00]/20"
                                   required
                               />
@@ -149,8 +170,7 @@ export default function Contact() {
                               <Label className="text-xs font-bold text-slate-500 uppercase">Email Pro</Label>
                               <Input 
                                   type="email"
-                                  value={contactForm.email}
-                                  onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                                  name="email"
                                   placeholder="jean@restaurant.com" 
                                   className="bg-white border-slate-200 focus:border-[#c25e00] focus:ring-[#c25e00]/20"
                                   required
@@ -159,20 +179,13 @@ export default function Contact() {
                           <div className="space-y-2">
                               <Label className="text-xs font-bold text-slate-500 uppercase">Message</Label>
                               <textarea 
-                                  value={contactForm.message}
-                                  onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                                  name="message"
                                   placeholder="Comment puis-je..." 
                                   className="w-full h-32 px-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:ring-4 focus:ring-[#c25e00]/10 focus:border-[#c25e00] text-sm resize-none text-slate-900 placeholder:text-gray-400 transition-all"
                                   required
                               />
                           </div>
-                          <Button 
-                              type="submit" 
-                              isLoading={isSending}
-                              className="w-full bg-[#c25e00] hover:bg-[#a04e00] text-white font-bold h-12 rounded-xl shadow-lg shadow-orange-500/10"
-                          >
-                              Envoyer le message <Send size={16} className="ml-2" />
-                          </Button>
+                          <SubmitButton />
                       </form>
                   </div>
               </div>

@@ -1,20 +1,16 @@
 import type { Metadata } from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-heading' });
-
 export const metadata: Metadata = {
-  title: 'MenuAfrica Suite',
-  description: 'Plateforme SAAS',
+  title: 'Menu Africa - La Suite Digitale pour Restaurants',
+  description: 'Numérisez votre carte, gagnez en visibilité et intégrez Bibin AI.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body suppressHydrationWarning className="font-sans">
+    <html lang="fr" className="antialiased scroll-smooth">
+      <body className="min-h-screen font-sans bg-slate-50 text-slate-900">
         <Providers>{children}</Providers>
       </body>
     </html>

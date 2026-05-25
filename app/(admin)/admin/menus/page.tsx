@@ -327,7 +327,7 @@ export default function MenusPage() {
 
                     <div className="flex items-center justify-between mb-8 p-5 bg-gray-50 dark:bg-gray-700/50 rounded-2xl border border-gray-100 dark:border-gray-700">
                         <span className="text-sm font-bold text-gray-600 dark:text-gray-300">{t('activeStatus')}</span>
-                        <Switch checked={menu.is_active} onCheckedChange={(c) => handleToggleStatus(menu, c)} />
+                        <Switch checked={menu.is_active} onCheckedChange={(c: boolean) => handleToggleStatus(menu, c)} />
                     </div>
 
                     <div className="flex gap-4 mt-auto">

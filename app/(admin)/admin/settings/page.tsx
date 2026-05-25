@@ -185,7 +185,7 @@ export default function SettingsPage() {
                             {t('weeklyReportDesc')}
                          </p>
                       </div>
-                      <Switch checked={reportWeekly} onCheckedChange={(v) => setReportWeekly(v)} />
+                      <Switch checked={reportWeekly} onCheckedChange={(v: boolean) => setReportWeekly(v)} />
                    </div>
 
                    <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-700/30 border border-slate-100 dark:border-slate-700 rounded-xl">
@@ -197,7 +197,7 @@ export default function SettingsPage() {
                             {t('monthlyReportDesc')}
                          </p>
                       </div>
-                      <Switch checked={reportMonthly} onCheckedChange={(v) => setReportMonthly(v)} />
+                      <Switch checked={reportMonthly} onCheckedChange={(v: boolean) => setReportMonthly(v)} />
                    </div>
 
                    <div className="pt-2">
@@ -235,7 +235,7 @@ export default function SettingsPage() {
                           <Label className="text-base dark:text-slate-200 flex items-center gap-2"><MessageSquare size={16} /> {t('newReviews')}</Label>
                           <p className="text-xs text-slate-400">{t('newReviewsDesc')}</p>
                       </div>
-                      <Switch checked={alertReview} onCheckedChange={(v) => setAlertReview(v)} />
+                      <Switch checked={alertReview} onCheckedChange={(v: boolean) => setAlertReview(v)} />
                    </div>
                    <div className="h-px bg-slate-100 dark:bg-slate-700" />
                    
@@ -244,7 +244,7 @@ export default function SettingsPage() {
                           <Label className="text-base dark:text-slate-200 flex items-center gap-2"><ThumbsUp size={16} /> {t('newLikes')}</Label>
                           <p className="text-xs text-slate-400">{t('newLikesDesc')}</p>
                       </div>
-                      <Switch checked={alertLike} onCheckedChange={(v) => setAlertLike(v)} />
+                      <Switch checked={alertLike} onCheckedChange={(v: boolean) => setAlertLike(v)} />
                    </div>
                 </CardContent>
             </Card>

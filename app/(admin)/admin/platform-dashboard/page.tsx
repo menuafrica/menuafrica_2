@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Users, Server, ShieldAlert, Activity, DollarSign, 
   MessageCircle, QrCode, Building, CreditCard,
-  RefreshCw, Terminal, Cpu, Zap, Calendar, Filter
+  RefreshCw, Terminal, Cpu, Zap, Calendar, Filter, Database
 } from 'lucide-react';
 import { generateFilteredData, type PlatformStats } from '@/lib/mockPlatformData';
 import { supabase } from '@/lib/supabase';
